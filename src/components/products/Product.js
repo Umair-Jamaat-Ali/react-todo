@@ -20,12 +20,39 @@ const customStyles = {
 
 
 
-function Product() {
+        function Product() {
 
-
-    const [modelVisible, setModelVisible] = useState(false)
 
     const [products, setProducts] = useState(data);
+
+    const [modelVisible, setModelVisible] = useState(false);
+
+    const [title, setTitle] = useState('');
+    const [category, setCategory] = useState('');
+    const [description, setDescription] = useState('');
+    const [price, setPrice] = useState();
+    const [imageURL, setImageURL] = useState('');
+
+    const submitHandler =() => {
+        // console.log('title', title);
+        // console.log('category', category);
+        // console.log('description', description);
+        // console.log('price', price);
+        // console.log('imageURL', imageURL);
+
+
+        let newItemAdd = {
+        id: Math.round(Math.random() * 10),
+        title: title,
+        price: price,
+        description: description,
+        category: category,
+        image: imageURL,
+        }
+
+        // console.log("newProduct", newItemAdd);
+        setProducts(newItemAdd, ...products);
+    }
 
     const onDeleteHandler = (id) => {
         const filteredProducts = products.filter((item) => item.id !== id)
@@ -92,31 +119,31 @@ function Product() {
                 </div>
                     <div className='mb-3'>
                     <label for="" className='form-label' >Title:</label>
-                    <input type="text" className='form-control' id='' placeholder='Enter Title' />
+                    <input type="text" className='form-control' onChange={(e)=>setTitle(e.target.value)} id='' placeholder='Enter Title' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Category:</label>
-                    <input type="text" className='form-control' id='' placeholder='Enter Category' />
+                    <input type="text" className='form-control' onChange={(e)=>setCategory(e.target.value)} id='' placeholder='Enter Category' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Description:</label>
-                    <input type="text" className='form-control' id='' placeholder='Enter Description' />
+                    <input type="text" className='form-control' onChange={(e)=>setDescription(e.target.value)} id='' placeholder='Enter Description' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Price:</label>
-                    <input type="number" className='form-control' id='' placeholder='Enter Price' />
+                    <input type="number" className='form-control' onChange={(e)=>setPrice(e.target.value)} id='' placeholder='Enter Price' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Image:</label>
-                    <input type="text" className='form-control' id='' placeholder='Enter Image URL' />
+                    <input type="text" className='form-control' onChange={(e)=>setImageURL(e.target.value)} id='' placeholder='Enter Image URL' />
                     </div>
 
 
-                    <button style={{margin: "30px"}} className="btn btn-success">Submit</button>
+                    <button style={{margin: "30px"}} className="btn btn-success" onClick={submitHandler} >Submit</button>
             </Modal>
 
 
