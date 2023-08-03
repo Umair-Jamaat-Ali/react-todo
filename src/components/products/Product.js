@@ -27,11 +27,11 @@ const customStyles = {
 
     const [modelVisible, setModelVisible] = useState(false);
 
-    const [title, setTitle] = useState('');
-    const [category, setCategory] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState();
-    const [imageURL, setImageURL] = useState('');
+    const [addTitle, setAddTitle] = useState('');
+    const [addCategory, setAddCategory] = useState('');
+    const [addDescription, setAddDescription] = useState('');
+    const [addPrice, setAddPrice] = useState();
+    const [addImageURL, setAddImageURL] = useState('');
 
     const submitHandler =() => {
         // console.log('title', title);
@@ -42,16 +42,17 @@ const customStyles = {
 
 
         let newItemAdd = {
-        id: Math.round(Math.random() * 10),
-        title: title,
-        price: price,
-        description: description,
-        category: category,
-        image: imageURL,
+        id: Math.round(Math.random() * 1000),
+        title: addTitle,
+        price: addCategory,
+        description: addDescription,
+        category: addPrice,
+        image: addImageURL,
         }
 
         // console.log("newProduct", newItemAdd);
-        setProducts(newItemAdd, ...products);
+        setProducts([newItemAdd, ...products]);
+        setModelVisible(false)
     }
 
     const onDeleteHandler = (id) => {
@@ -119,34 +120,77 @@ const customStyles = {
                 </div>
                     <div className='mb-3'>
                     <label for="" className='form-label' >Title:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setTitle(e.target.value)} id='' placeholder='Enter Title' />
+                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Title' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Category:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setCategory(e.target.value)} id='' placeholder='Enter Category' />
+                    <input type="text" className='form-control' onChange={(e)=>setAddCategory(e.target.value)} id='' placeholder='Enter Category' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Description:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setDescription(e.target.value)} id='' placeholder='Enter Description' />
+                    <input type="text" className='form-control' onChange={(e)=>setAddDescription(e.target.value)} id='' placeholder='Enter Description' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Price:</label>
-                    <input type="number" className='form-control' onChange={(e)=>setPrice(e.target.value)} id='' placeholder='Enter Price' />
+                    <input type="number" className='form-control' onChange={(e)=>setAddPrice(e.target.value)} id='' placeholder='Enter Price' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Image:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setImageURL(e.target.value)} id='' placeholder='Enter Image URL' />
+                    <input type="text" className='form-control' onChange={(e)=>setAddImageURL(e.target.value)} id='' placeholder='Enter Image URL' />
                     </div>
 
 
                     <button style={{margin: "30px"}} className="btn btn-success" onClick={submitHandler} >Submit</button>
             </Modal>
 
+            <Modal
+        isOpen={true}
+        onAfterOpen={()=>null}
+        onRequestClose={()=>null}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        
+        <div className="row">
+                    <div className="col-md-10">
+                    <h4 >Edit The Product</h4>
+                    </div>
+                    <div className="col-md-2">
+                    <button type='button' className='btn-close' aria-label='Close' onClick={()=>setModelVisible(false)} ></button>
+                    </div>
+                </div>
+        <form>
+        <div className='mb-3'>
+                    <label for="" className='form-label' >Title:</label>
+                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Title' />
+                    </div>         
+                    
+                    <div className='mb-3'>
+                    <label for="" className='form-label' >Category:</label>
+                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Category' />
+                    </div>
 
+                    <div className='mb-3'>
+                    <label for="" className='form-label' >Description:</label>
+                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Description' />
+                    </div>
+
+                    <div className='mb-3'>
+                    <label for="" className='form-label' >Price:</label>
+                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Price' />
+                    </div>
+
+                    <div className='mb-3'>
+                    <label for="" className='form-label' >Image:</label>
+                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Image' />
+                    </div>
+          <button type="button" class="btn btn-primary" style={{margin : "30px"}}>Submit</button>
+        </form>
+      </Modal>
 
         </div>
     )
