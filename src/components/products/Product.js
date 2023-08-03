@@ -32,7 +32,7 @@ const customStyles = {
     const [addDescription, setAddDescription] = useState('');
     const [addPrice, setAddPrice] = useState();
     const [addImageURL, setAddImageURL] = useState('');
-
+    
     const submitHandler =() => {
         // console.log('title', title);
         // console.log('category', category);
@@ -53,6 +53,16 @@ const customStyles = {
         // console.log("newProduct", newItemAdd);
         setProducts([newItemAdd, ...products]);
         setModelVisible(false)
+    }
+
+
+    const [editModel, setEditModel] = useState(false);
+
+   
+
+
+    const onEditHandler = () => {
+        
     }
 
     const onDeleteHandler = (id) => {
@@ -96,7 +106,7 @@ const customStyles = {
                                 <td>{item.price}</td>
                                 <td><img src={item.image} alt="" style={{ width: "40px" }} /></td>
                                 <button className="btn btn-outline-danger" onClick={() => onDeleteHandler(item.id)}>Delete</button>
-                                <button className="btn btn-outline-info">Edit</button>
+                                <button className="btn btn-outline-info" onClick={()=>setEditModel(true)} >Edit</button>
                             </tr>
                         )
                     })}
@@ -115,42 +125,42 @@ const customStyles = {
                     <h4 >Add New Product</h4>
                     </div>
                     <div className="col-md-2">
-                    <button type='button' className='btn-close' aria-label='Close' onClick={()=>setModelVisible(false)} ></button>
+                    <button type='button' className='btn-close' aria-label='Close' onClick={()=>setEditModel(false)} ></button>
                     </div>
                 </div>
                     <div className='mb-3'>
                     <label for="" className='form-label' >Title:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Title' />
+                    <input type="text" className='form-control' id='' placeholder='Enter Title' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Category:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddCategory(e.target.value)} id='' placeholder='Enter Category' />
+                    <input type="text" className='form-control' id='' placeholder='Enter Category' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Description:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddDescription(e.target.value)} id='' placeholder='Enter Description' />
+                    <input type="text" className='form-control'  id='' placeholder='Enter Description' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Price:</label>
-                    <input type="number" className='form-control' onChange={(e)=>setAddPrice(e.target.value)} id='' placeholder='Enter Price' />
+                    <input type="number" className='form-control' id='' placeholder='Enter Price' />
                     </div>
 
                     <div className='mb-3'>
                     <label for="" className='form-label' >Image:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddImageURL(e.target.value)} id='' placeholder='Enter Image URL' />
+                    <input type="text" className='form-control'  id='' placeholder='Enter Image URL' />
                     </div>
 
 
                     <button style={{margin: "30px"}} className="btn btn-success" onClick={submitHandler} >Submit</button>
             </Modal>
-
+                    {/* Edit Model */}
             <Modal
-        isOpen={true}
+        isOpen={editModel}
         onAfterOpen={()=>null}
-        onRequestClose={()=>null}
+        onRequestClose={()=>setEditModel(false)}
         style={customStyles}
         contentLabel="Example Modal"
       >
@@ -188,7 +198,7 @@ const customStyles = {
                     <label for="" className='form-label' >Image:</label>
                     <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Image' />
                     </div>
-          <button type="button" class="btn btn-primary" style={{margin : "30px"}}>Submit</button>
+          <button type="button" class="btn btn-primary" style={{margin : "30px"}} onClick={onEditHandler}>Submit</button>
         </form>
       </Modal>
 
