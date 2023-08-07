@@ -27,12 +27,16 @@ function Product() {
 
     const [modelVisible, setModelVisible] = useState(false);
 
-    const [addTitle, setAddTitle] = useState('');
-    const [addCategory, setAddCategory] = useState('');
-    const [addDescription, setAddDescription] = useState('');
-    const [addPrice, setAddPrice] = useState();
-    const [addImageURL, setAddImageURL] = useState('');
+    const [addTitle, setAddTitle] = useState(null);
+    const [addCategory, setAddCategory] = useState(null);
+    const [addDescription, setAddDescription] = useState(null);
+    const [addPrice, setAddPrice] = useState(0);
+    const [addImageURL, setAddImageURL] = useState(null);
+    const [editId, setEditId] = useState(null);
 
+    // if(!(addCategory && addDescription && addImageURL && addPrice && addTitle)){
+    //     alert("add the value!");
+    // }
     const submitHandler = () => {
         // console.log('title', title);
         // console.log('category', category);
@@ -56,40 +60,40 @@ function Product() {
     }
 
 
-    const [editModel, setEditModel] = useState(false);
+    // const [editModel, setEditModel] = useState(false);
 
-    const [editId, setEditId] = useState("");
-    const [editTital, setEditTital] = useState("");
-    const [editCategory, setEditCategory] = useState("");
-    const [editDescription, setEditDescription] = useState("");
-    const [editPrice, setEditPrice] = useState("");
-    const [editImageURL, setEditImageURL] = useState("");
-
-
-
-    const onEditHandler = () => {
-
-        const itemIndex = products.findIndex((item) => item.id === editId);
-
-        if (itemIndex !== -1) {
-            // Create a copy of the array
-            const updatedProducts = [...products];
+    // const [editId, setEditId] = useState("");
+    // const [editTital, setEditTital] = useState("");
+    // const [editCategory, setEditCategory] = useState("");
+    // const [editDescription, setEditDescription] = useState("");
+    // const [editPrice, setEditPrice] = useState("");
+    // const [editImageURL, setEditImageURL] = useState("");
 
 
-            updatedProducts[itemIndex] = {
-                id: editId,
-                title: editTital,
-                price: editPrice,
-                description: editDescription,
-                category: editCategory,
-                image: editImageURL,
-            }
-            }
 
-            setProducts([products]);
-            setEditModel(false)
-        
-    }
+    // const onEditHandler = () => {
+
+    //     const itemIndex = products.map((item) => item.id === editId);
+
+    //     if (itemIndex !== -1) {
+    //         // Create a copy of the array
+    //         const updatedProducts = [...products];
+
+
+    //         updatedProducts[itemIndex] = {
+    //             id: editId,
+    //             title: editTital,
+    //             price: editPrice,
+    //             description: editDescription,
+    //             category: editCategory,
+    //             image: editImageURL,
+    //         }
+    //         }
+
+    //         setProducts([products]);
+    //         setEditModel(false)
+
+    // }
 
     const onDeleteHandler = (id) => {
         const filteredProducts = products.filter((item) => item.id !== id)
@@ -98,6 +102,22 @@ function Product() {
     }
 
     console.log(products);
+
+    const onEditChange = (item) => {
+        console.log("item", item);
+        setEditId(item.id);
+        setAddTitle(item.title);
+        setAddDescription(item.description);
+        setAddCategory(item.category);
+        setAddPrice(item.price);
+        setAddImageURL(item.image)
+        setModelVisible(true)
+
+
+
+    }
+
+
     return (
         <div>
             <div className="container " style={{ margin: "15px" }} >
@@ -132,7 +152,7 @@ function Product() {
                                 <td>{item.price}</td>
                                 <td><img src={item.image} alt="" style={{ width: "40px" }} /></td>
                                 <button className="btn btn-outline-danger" onClick={() => onDeleteHandler(item.id)}>Delete</button>
-                                <button className="btn btn-outline-info" onClick={() => setEditModel(true)} >Edit</button>
+                                <button className="btn btn-outline-info" onClick={() => onEditChange(item)} >Edit</button>
                             </tr>
                         )
                     })}
@@ -146,44 +166,81 @@ function Product() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
+                {editId ? :}
                 <div className="row">
                     <div className="col-md-10">
                         <h4 >Add New Product</h4>
                     </div>
                     <div className="col-md-2">
-                        <button type='button' className='btn-close' aria-label='Close' onClick={() => setEditModel(false)} ></button>
+                        <button type='button' className='btn-close' aria-label='Close'  ></button>
                     </div>
                 </div>
                 <div className='mb-3'>
                     <label for="" className='form-label' >Title:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddTitle(e.target.value)} id='' placeholder='Enter Title' />
+                    <input
+                        type="text"
+                        className='form-control'
+                        onChange={(e) => setAddTitle(e.target.value)} id=''
+                        placeholder='Enter Title' 
+                        value={addTitle}
+                        />
                 </div>
 
                 <div className='mb-3'>
                     <label for="" className='form-label' >Category:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddCategory(e.target.value)} id='' placeholder='Enter Category' />
+                    <input
+                        type="text"
+                        className='form-control'
+                        onChange={(e) => setAddCategory(e.target.value)} id=''
+                        placeholder='Enter Category'
+                        value={addCategory}
+                    />
                 </div>
 
                 <div className='mb-3'>
                     <label for="" className='form-label' >Description:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddDescription(e.target.value)} id='' placeholder='Enter Description' />
+                    <input
+                        type="text"
+                        className='form-control'
+                        onChange={(e) => setAddDescription(e.target.value)} id=''
+                        placeholder='Enter Description'
+                        value={addDescription}
+                    />
                 </div>
 
                 <div className='mb-3'>
                     <label for="" className='form-label' >Price:</label>
-                    <input type="number" className='form-control' onChange={(e)=>setAddPrice(e.target.value)} id='' placeholder='Enter Price' />
+                    <input
+                        type="number"
+                        className='form-control'
+                        onChange={(e) => setAddPrice(e.target.value)} id=''
+                        placeholder='Enter Price'
+                        value={addPrice}
+                    />
                 </div>
 
                 <div className='mb-3'>
                     <label for="" className='form-label' >Image:</label>
-                    <input type="text" className='form-control' onChange={(e)=>setAddImageURL(e.target.value)} id='' placeholder='Enter Image URL' />
+                    <input
+                        type="text"
+                        className='form-control'
+                        onChange={(e) => setAddImageURL(e.target.value)} id=''
+                        placeholder='Enter Image URL'
+                        value={addImageURL}
+                    />
                 </div>
 
 
-                <button style={{ margin: "30px" }} className="btn btn-success" onClick={submitHandler} >Submit</button>
+                <button
+                    style={{ margin: "30px" }}
+                    className="btn btn-success"
+                    onClick={submitHandler}
+                >
+                    Submit
+                </button>
             </Modal>
             {/* Edit Model */}
-            <Modal
+            {/* <Modal
                 isOpen={editModel}
                 onAfterOpen={() => null}
                 onRequestClose={() => setEditModel(false)}
@@ -228,9 +285,9 @@ function Product() {
                         <label for="" className='form-label' >Image:</label>
                         <input type="text" className='form-control' onChange={(e) => setEditImageURL(e.target.value)} id='' placeholder='Enter Image' />
                     </div>
-                    <button type="button" class="btn btn-primary" style={{ margin: "30px" }} onClick={onEditHandler}>Submit</button>
+                    <button type="button" class="btn btn-primary" style={{ margin: "30px" }} onClick={onEditHandler}>Update</button>
                 </form>
-            </Modal>
+            </Modal> */}
 
         </div>
     )
