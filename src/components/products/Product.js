@@ -34,16 +34,16 @@ function Product() {
     const [addImageURL, setAddImageURL] = useState(null);
     const [editId, setEditId] = useState(null);
 
-    // if(!(addCategory && addDescription && addImageURL && addPrice && addTitle)){
-    //     alert("add the value!");
-    // }
+
     const submitHandler = () => {
         // console.log('title', title);
         // console.log('category', category);
         // console.log('description', description);
         // console.log('price', price);
         // console.log('imageURL', imageURL);
-
+        if (!(addCategory && addDescription && addImageURL && addPrice && addTitle)) {
+            alert("add the value!");
+        }
 
         let newItemAdd = {
             id: Math.round(Math.random() * 1000),
@@ -166,7 +166,7 @@ function Product() {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                {editId ? :}
+
                 <div className="row">
                     <div className="col-md-10">
                         <h4 >Add New Product</h4>
@@ -181,9 +181,9 @@ function Product() {
                         type="text"
                         className='form-control'
                         onChange={(e) => setAddTitle(e.target.value)} id=''
-                        placeholder='Enter Title' 
+                        placeholder='Enter Title'
                         value={addTitle}
-                        />
+                    />
                 </div>
 
                 <div className='mb-3'>
